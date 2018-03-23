@@ -1,0 +1,9 @@
+{
+  "name": "trails",
+  "version": "1.0.0",
+  "main": "scrape.js",
+  "license": "MIT",
+  "devDependencies": {
+    "puppeteer": "^1.2.0"
+  }
+}
