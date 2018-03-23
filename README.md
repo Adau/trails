@@ -4,7 +4,9 @@
     yarn install
     ```
 
-2. Récupérer les données :
+2. Configurer les compétitions dans le fichier `competitions.json`
+
+3. Récupérer les données :
 
     ```sh
     node scrape.js
