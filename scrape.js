@@ -2,7 +2,7 @@
 
 const puppeteer = require('puppeteer')
 const moment = require('moment')
-moment.locale('fr');
+moment.locale('fr')
 
 const scrape = async () => {
   const browser = await puppeteer.launch(/*{ headless: false }*/)
@@ -58,6 +58,6 @@ const scrape = async () => {
 
 scrape()
   .then(data => {
-    console.log(data);
+    console.log(data)
   })
   .catch(e => console.error(e))
