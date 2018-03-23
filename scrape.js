@@ -1,6 +1,8 @@
 /* eslint no-console: "off" */
 
 const puppeteer = require('puppeteer')
+const moment = require('moment')
+moment.locale('fr');
 
 const scrape = async () => {
   const browser = await puppeteer.launch(/*{ headless: false }*/)
@@ -9,11 +11,17 @@ const scrape = async () => {
   await page.goto('https://inscriptions-l-chrono.com/fouleesdegruffy2018')
   await page.waitFor('body')
 
-  const data = await page.evaluate(() => {
+  await page.exposeFunction('moment', moment)
+
+  const data = await page.evaluate(async () => {
     const node = document.querySelector('.competition')
 
     const name = node.querySelector('.competition-name').innerText.trim()
-    const date = node.querySelector('.date').innerText.trim()
+
+    let date = node.querySelector('.date').innerText.trim()
+    let time = node.querySelector('.time').innerText.trim()
+    date = await moment(`${date} ${time}`, 'dddd D MMMM YYYY HH:mm:ss')
+
     let distance = node.querySelector('.span6 > .stats-container .stat.summary span').innerText.trim()
     distance = distance.match(/\d+(,\d+)?/)[0]
     distance = parseFloat(distance.replace(',', '.'))

@@ -5,5 +5,8 @@
   "license": "MIT",
   "devDependencies": {
     "puppeteer": "^1.2.0"
+  },
+  "dependencies": {
+    "moment": "^2.21.0"
   }
 }
