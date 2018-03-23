@@ -1,25 +1,24 @@
 /* eslint no-console: "off" */
 
 const puppeteer = require('puppeteer')
+const competitions = require('./competitions')
 const moment = require('moment')
 moment.locale('fr')
 
-const scrape = async () => {
-  const browser = await puppeteer.launch(/*{ headless: false }*/)
-
+const getData = async (browser, competition) => {
   const page = await browser.newPage()
-  await page.goto('https://inscriptions-l-chrono.com/fouleesdegruffy2018')
+  await page.goto(competition.url)
   await page.waitFor('body')
 
   await page.exposeFunction('moment', moment)
 
-  const data = await page.evaluate(async () => {
+  const data = await page.evaluate(async competition => {
     const nodes = document.querySelectorAll('.competition')
 
     for (let node of nodes) {
       const name = node.querySelector('.competition-name').innerText.trim()
 
-      if (name != "Gruff' à l'eau (Trail découverte)") {
+      if (name != competition.name) {
         continue
       }
 
@@ -49,7 +48,17 @@ const scrape = async () => {
     }
 
     return {}
-  })
+  }, competition)
+
+  return data
+}
+
+const scrape = async () => {
+  const browser = await puppeteer.launch(/*{ headless: false }*/)
+
+  const data = await Promise.all(
+    competitions.map(competition => getData(browser, competition))
+  )
 
   browser.close()
 
