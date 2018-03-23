@@ -14,33 +14,41 @@ const scrape = async () => {
   await page.exposeFunction('moment', moment)
 
   const data = await page.evaluate(async () => {
-    const node = document.querySelector('.competition')
+    const nodes = document.querySelectorAll('.competition')
 
-    const name = node.querySelector('.competition-name').innerText.trim()
+    for (let node of nodes) {
+      const name = node.querySelector('.competition-name').innerText.trim()
 
-    let date = node.querySelector('.date').innerText.trim()
-    let time = node.querySelector('.time').innerText.trim()
-    date = await moment(`${date} ${time}`, 'dddd D MMMM YYYY HH:mm:ss')
+      if (name != "Gruff' à l'eau (Trail découverte)") {
+        continue
+      }
 
-    let distance = node.querySelector('.span6 > .stats-container .stat.summary span').innerText.trim()
-    distance = distance.match(/\d+(,\d+)?/)[0]
-    distance = parseFloat(distance.replace(',', '.'))
+      let date = node.querySelector('.date').innerText.trim()
+      let time = node.querySelector('.time').innerText.trim()
+      date = await moment(`${date} ${time}`, 'dddd D MMMM YYYY HH:mm:ss')
 
-    let elevation = node.querySelector('.span6 > .stats-container .stat.summary span:last-child').innerText.trim()
-    elevation = elevation.match(/\d+(,\d+)?/)[0]
-    elevation = parseFloat(elevation.replace(',', '.'))
+      let distance = node.querySelector('.span6 > .stats-container .stat.summary span').innerText.trim()
+      distance = distance.match(/\d+(,\d+)?/)[0]
+      distance = parseFloat(distance.replace(',', '.'))
 
-    let remainingPlaces = node.querySelector('.remaining-seats').innerText.trim()
-    remainingPlaces = remainingPlaces.match(/\d+(,\d+)?/)[0]
-    remainingPlaces = parseFloat(remainingPlaces.replace(',', '.'))
+      let elevation = node.querySelector('.span6 > .stats-container .stat.summary span:last-child').innerText.trim()
+      elevation = elevation.match(/\d+(,\d+)?/)[0]
+      elevation = parseFloat(elevation.replace(',', '.'))
 
-    let totalPlaces = node.querySelector('.participant-limit').innerText.trim()
-    totalPlaces = totalPlaces.match(/\d+(,\d+)?/)[0]
-    totalPlaces = parseFloat(totalPlaces.replace(',', '.'))
+      let remainingPlaces = node.querySelector('.remaining-seats').innerText.trim()
+      remainingPlaces = remainingPlaces.match(/\d+(,\d+)?/)[0]
+      remainingPlaces = parseFloat(remainingPlaces.replace(',', '.'))
 
-    let isOpen = !!node.querySelector('.competition-buttons')
+      let totalPlaces = node.querySelector('.participant-limit').innerText.trim()
+      totalPlaces = totalPlaces.match(/\d+(,\d+)?/)[0]
+      totalPlaces = parseFloat(totalPlaces.replace(',', '.'))
 
-    return { name, date, distance, elevation, remainingPlaces, totalPlaces, isOpen }
+      let isOpen = !!node.querySelector('.competition-buttons')
+
+      return { name, date, distance, elevation, remainingPlaces, totalPlaces, isOpen }
+    }
+
+    return {}
   })
 
   browser.close()
