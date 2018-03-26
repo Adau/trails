@@ -2,7 +2,9 @@
 
 const puppeteer = require('puppeteer')
 const competitions = require('./competitions')
+const elements = require('./elements')
 const moment = require('moment')
+
 moment.locale('fr')
 
 const format = async (value, type = 'string') => {
@@ -30,55 +32,37 @@ const format = async (value, type = 'string') => {
   return value
 }
 
-const getData = async (browser, competition) => {
+const getData = async (browser, competition, elements) => {
   const page = await browser.newPage()
   await page.goto(competition.url)
   await page.waitFor('body')
 
   await page.exposeFunction('format', format)
 
-  const data = await page.evaluate(async competition => {
-    const nodes = document.querySelectorAll('.competition')
+  return await page.evaluate(async (competition, elements) => {
+    const node = document.evaluate(
+      `//li[contains(@class, "competition") and .//span[normalize-space(text())="${competition.name}"]]`,
+      document,
+      null,
+      XPathResult.ANY_TYPE,
+      null
+    ).iterateNext()
 
-    for (let node of nodes) {
-      const name = await format(node.querySelector('.competition-name').innerText, 'string')
+    let data = {}
 
-      if (name != competition.name) {
-        continue
-      }
-
-      let date = await format(node.querySelector('.date').innerText, 'string')
-      let time = await format(node.querySelector('.time').innerText, 'string')
-      date = await format(`${date} ${time}`, 'date')
-
-      let distance = node.querySelector('.span6 > .stats-container .stat.summary span').innerText
-      distance = await format(distance, 'number')
-
-      let elevation = node.querySelector('.span6 > .stats-container .stat.summary span:last-child').innerText
-      elevation = await format(elevation, 'number')
-
-      let remainingPlaces = node.querySelector('.remaining-seats').innerText
-      remainingPlaces = await format(remainingPlaces, 'number')
-
-      let totalPlaces = node.querySelector('.participant-limit').innerText
-      totalPlaces = await format(totalPlaces, 'number')
-
-      let isOpen = !!node.querySelector('.competition-buttons')
-
-      return { name, date, distance, elevation, remainingPlaces, totalPlaces, isOpen }
+    for (let element of elements) {
+      data[element.name] = await format(node.querySelector(element.node).innerText, element.type)
     }
 
-    return {}
-  }, competition)
-
-  return data
+    return data
+  }, competition, elements)
 }
 
 const scrape = async () => {
   const browser = await puppeteer.launch(/*{ headless: false }*/)
 
   const data = await Promise.all(
-    competitions.map(competition => getData(browser, competition))
+    competitions.map(competition => getData(browser, competition, elements))
   )
 
   browser.close()
