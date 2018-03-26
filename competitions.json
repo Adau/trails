@@ -1,10 +1,16 @@
 [{
+  "name": "Lavy des Cimes",
+  "url": "https://inscriptions-l-chrono.com/lavydescimes2017"
+},{
+  "name": "Trail Blanc du Semnoz",
+  "url": "https://inscriptions-l-chrono.com/trailblancdusemnoz2018"
+}, {
   "name": "Le Talabar",
-  "url": "https://inscriptions-l-chrono.com/traildesglaisins2018/"
+  "url": "https://inscriptions-l-chrono.com/traildesglaisins2018"
 }, {
   "name": "Gruff' à l'eau (Trail découverte)",
   "url": "https://inscriptions-l-chrono.com/fouleesdegruffy2018"
 }, {
   "name": "Crève-tête 19km",
-  "url": "https://www.njuko.net/madtrail2018/"
+  "url": "https://www.njuko.net/madtrail2018"
 }]
