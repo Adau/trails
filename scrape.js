@@ -35,7 +35,6 @@ const getData = async (browser, competition) => {
   await page.goto(competition.url)
   await page.waitFor('body')
 
-  await page.exposeFunction('moment', moment)
   await page.exposeFunction('format', format)
 
   const data = await page.evaluate(async competition => {
