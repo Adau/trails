@@ -51,7 +51,10 @@ const getData = async (browser, competition, elements) => {
     let data = {}
 
     for (let element of elements) {
-      data[element.name] = await format(node.querySelector(element.node).innerText, element.type)
+      data[element.name] = await format(
+        (node.querySelector(element.node) || document.createElement('div')).innerText,
+        element.type
+      )
     }
 
     return data
