@@ -32,12 +32,17 @@ const format = async (value, type = 'string') => {
   return value
 }
 
+const getDomainName = async (url) => {
+  return url.split('.').slice(-2)[0]
+}
+
 const getData = async (browser, competition, elements) => {
   const page = await browser.newPage()
   await page.goto(competition.url)
   await page.waitFor('body')
 
   await page.exposeFunction('format', format)
+  await page.exposeFunction('getDomainName', getDomainName)
 
   return await page.evaluate(async (competition, elements) => {
     const node = document.evaluate(
@@ -50,7 +55,8 @@ const getData = async (browser, competition, elements) => {
 
     let data = {}
 
-    for (let element of elements) {
+    const domainName = await getDomainName(window.location.hostname)
+    for (let element of elements[domainName]) {
       data[element.name] = await format(
         (node.querySelector(element.node) || document.createElement('div')).innerText,
         element.type

@@ -1,29 +1,60 @@
-[{
-  "name": "name",
-  "type": "string",
-  "node": ".competition-name"
-}, {
-  "name": "date",
-  "type": "date",
-  "node": ".date-container"
-}, {
-  "name": "distance",
-  "type": "number",
-  "node": ".span6 > .stats-container .stat.summary span"
-}, {
-  "name": "elevation",
-  "type": "number",
-  "node": ".span6 > .stats-container .stat.summary span:last-child"
-}, {
-  "name": "remainingPlaces",
-  "type": "number",
-  "node": ".remaining-seats"
-}, {
-  "name": "totalPlaces",
-  "type": "number",
-  "node": ".participant-limit"
-}, {
-  "name": "isOpen",
-  "type": "boolean",
-  "node": ".competition-buttons"
-}]
+{
+  "inscriptions-l-chrono": [{
+    "name": "name",
+    "type": "string",
+    "node": ".competition-name"
+  }, {
+    "name": "date",
+    "type": "date",
+    "node": ".date-container"
+  }, {
+    "name": "distance",
+    "type": "number",
+    "node": ".span6 > .stats-container .stat.summary span"
+  }, {
+    "name": "elevation",
+    "type": "number",
+    "node": ".span6 > .stats-container .stat.summary span:last-child"
+  }, {
+    "name": "remainingPlaces",
+    "type": "number",
+    "node": ".remaining-seats"
+  }, {
+    "name": "totalPlaces",
+    "type": "number",
+    "node": ".participant-limit"
+  }, {
+    "name": "isOpen",
+    "type": "boolean",
+    "node": ".competition-buttons"
+  }],
+  "njuko": [{
+    "name": "name",
+    "type": "string",
+    "node": ".competition-name"
+  }, {
+    "name": "date",
+    "type": "date",
+    "node": ".date-container"
+  }, {
+    "name": "distance",
+    "type": "number",
+    "node": ".span6 > .stats-container .stat.summary span"
+  }, {
+    "name": "elevation",
+    "type": "number",
+    "node": ".span6 > .stats-container .stat.summary span:last-child"
+  }, {
+    "name": "remainingPlaces",
+    "type": "number",
+    "node": ".remaining-seats"
+  }, {
+    "name": "totalPlaces",
+    "type": "number",
+    "node": ".participant-limit"
+  }, {
+    "name": "isOpen",
+    "type": "boolean",
+    "node": ".competition-buttons"
+  }]
+}
