@@ -45,8 +45,11 @@ const getData = async (browser, competition, elements) => {
   await page.exposeFunction('getDomainName', getDomainName)
 
   return await page.evaluate(async (competition, elements) => {
+    const domainName = await getDomainName(window.location.hostname)
+    const xpathExpression = elements[domainName].xpathExpression.replace('%s', competition.name)
+
     const node = document.evaluate(
-      `//li[contains(@class, "competition") and .//span[normalize-space(text())="${competition.name}"]]`,
+      xpathExpression,
       document,
       null,
       XPathResult.ANY_TYPE,
@@ -55,8 +58,7 @@ const getData = async (browser, competition, elements) => {
 
     let data = {}
 
-    const domainName = await getDomainName(window.location.hostname)
-    for (let element of elements[domainName]) {
+    for (let element of elements[domainName].elements) {
       data[element.name] = await format(
         (node.querySelector(element.node) || document.createElement('div')).innerText,
         element.type

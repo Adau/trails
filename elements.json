@@ -1,60 +1,90 @@
 {
-  "inscriptions-l-chrono": [{
-    "name": "name",
-    "type": "string",
-    "node": ".competition-name"
-  }, {
-    "name": "date",
-    "type": "date",
-    "node": ".date-container"
-  }, {
-    "name": "distance",
-    "type": "number",
-    "node": ".span6 > .stats-container .stat.summary span"
-  }, {
-    "name": "elevation",
-    "type": "number",
-    "node": ".span6 > .stats-container .stat.summary span:last-child"
-  }, {
-    "name": "remainingPlaces",
-    "type": "number",
-    "node": ".remaining-seats"
-  }, {
-    "name": "totalPlaces",
-    "type": "number",
-    "node": ".participant-limit"
-  }, {
-    "name": "isOpen",
-    "type": "boolean",
-    "node": ".competition-buttons"
-  }],
-  "njuko": [{
-    "name": "name",
-    "type": "string",
-    "node": ".competition-name"
-  }, {
-    "name": "date",
-    "type": "date",
-    "node": ".date-container"
-  }, {
-    "name": "distance",
-    "type": "number",
-    "node": ".span6 > .stats-container .stat.summary span"
-  }, {
-    "name": "elevation",
-    "type": "number",
-    "node": ".span6 > .stats-container .stat.summary span:last-child"
-  }, {
-    "name": "remainingPlaces",
-    "type": "number",
-    "node": ".remaining-seats"
-  }, {
-    "name": "totalPlaces",
-    "type": "number",
-    "node": ".participant-limit"
-  }, {
-    "name": "isOpen",
-    "type": "boolean",
-    "node": ".competition-buttons"
-  }]
+  "inscriptions-l-chrono": {
+    "xpathExpression": "//li[contains(@class, \"competition\") and .//span[normalize-space(text())=\"%s\"]]",
+    "elements": [{
+      "name": "name",
+      "type": "string",
+      "node": ".competition-name"
+    }, {
+      "name": "date",
+      "type": "date",
+      "node": ".date-container"
+    }, {
+      "name": "distance",
+      "type": "number",
+      "node": ".span6 > .stats-container .stat.summary span"
+    }, {
+      "name": "elevation",
+      "type": "number",
+      "node": ".span6 > .stats-container .stat.summary span:last-child"
+    }, {
+      "name": "remainingPlaces",
+      "type": "number",
+      "node": ".remaining-seats"
+    }, {
+      "name": "totalPlaces",
+      "type": "number",
+      "node": ".participant-limit"
+    }, {
+      "name": "isOpen",
+      "type": "boolean",
+      "node": ".competition-buttons"
+    }]
+  },
+  "njuko": {
+    "xpathExpression": "//li[contains(@class, \"competition\") and .//span[normalize-space(text())=\"%s\"]]",
+    "elements": [{
+      "name": "name",
+      "type": "string",
+      "node": ".competition-name"
+    }, {
+      "name": "date",
+      "type": "date",
+      "node": ".date-container"
+    }, {
+      "name": "distance",
+      "type": "number",
+      "node": ".span6 > .stats-container .stat.summary span"
+    }, {
+      "name": "elevation",
+      "type": "number",
+      "node": ".span6 > .stats-container .stat.summary span:last-child"
+    }, {
+      "name": "remainingPlaces",
+      "type": "number",
+      "node": ".remaining-seats"
+    }, {
+      "name": "totalPlaces",
+      "type": "number",
+      "node": ".participant-limit"
+    }, {
+      "name": "isOpen",
+      "type": "boolean",
+      "node": ".competition-buttons"
+    }]
+  },
+  "la6000d": {
+    "xpathExpression": "//div[@class=\"course\" and .//a[normalize-space(text())=\"%s\"]]",
+    "elements": [{
+      "name": "name",
+      "type": "string",
+      "node": "h2 > a"
+    }, {
+      "name": "distance",
+      "type": "number",
+      "node": "ul > li:first-child"
+    }, {
+      "name": "elevation",
+      "type": "number",
+      "node": "ul > li:last-child"
+    }, {
+      "name": "remainingPlaces",
+      "type": "number",
+      "node": ".nbinscrits > span"
+    }, {
+      "name": "totalPlaces",
+      "type": "number",
+      "node": ".nbinscrits"
+    }]
+  }
 }
