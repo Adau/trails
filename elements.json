@@ -86,5 +86,25 @@
       "type": "number",
       "node": ".nbinscrits"
     }]
+  },
+  "registration4all": {
+    "xpathExpression": "//table[@class=\"celluleinterne\" and .//span[normalize-space(text())=\"%s\"]]",
+    "elements": [{
+      "name": "name",
+      "type": "string",
+      "node": ".txtintinscription"
+    }, {
+      "name": "date",
+      "type": "date",
+      "node": ".datecellule"
+    }, {
+      "name": "distance",
+      "type": "number",
+      "node": ".txtintinscription"
+    }, {
+      "name": "remainingPlaces",
+      "type": "number",
+      "node": ".badge-success > span"
+    }]
   }
 }
